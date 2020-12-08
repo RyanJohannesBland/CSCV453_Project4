@@ -61,165 +61,162 @@ Grammar
    36          | RETURN ';'
    37          | Assignment ';'
    38          | Functioncall ';'
-   39          | '{' MultipleStatements '}'
-   40          | '{' '}'
+   39          | '{' Stmtlist '}'
 
-   41 MultipleStatements: Statement
-   42                   | MultipleStatements Statement
+   40 Assignment: Identifier '=' Expression
 
-   43 Assignment: Identifier '=' Expression
+   41 Expression: NOT Expression
+   42           | MINUS Expression
+   43           | Expression PLUS Expression
+   44           | Expression MINUS Expression
+   45           | Expression MUL Expression
+   46           | Expression DIV Expression
+   47           | Expression EQ Expression
+   48           | Expression NOTEQ Expression
+   49           | Expression LTEQ Expression
+   50           | Expression LT Expression
+   51           | Expression GTEQ Expression
+   52           | Expression GT Expression
+   53           | Expression AND Expression
+   54           | Expression OR Expression
+   55           | Functioncall
+   56           | Identifier
+   57           | '(' Expression ')'
+   58           | INTCON
+   59           | CHARCON
+   60           | STRINGCON
 
-   44 Expression: '-' Expression
-   45           | '!' Expression
-   46           | Expression '+' Expression
-   47           | Expression '-' Expression
-   48           | Expression '*' Expression
-   49           | Expression '/' Expression
-   50           | Expression '=' '=' Expression
-   51           | Expression '!' '=' Expression
-   52           | Expression '<' '=' Expression
-   53           | Expression '<' Expression
-   54           | Expression '>' '=' Expression
-   55           | Expression '>' Expression
-   56           | Expression '&' '&' Expression
-   57           | Expression '|' '|' Expression
-   58           | Functioncall
-   59           | Identifier
-   60           | '(' Expression ')'
-   61           | INTCON
-   62           | CHARCON
-   63           | STRINGCON
+   61 Functioncall: ID '(' ')'
+   62             | ID '(' Parameterlist ')'
 
-   64 Functioncall: ID '(' ')'
-   65             | ID '(' Parameterlist ')'
+   63 IDlist: Identifier
+   64       | IDlist ',' Identifier
 
-   66 IDlist: Identifier
-   67       | IDlist ',' Identifier
+   65 Identifier: ID
+   66           | ID '[' Expression ']'
+   67           | ID '[' ']'
 
-   68 Identifier: ID
-   69           | ID '[' Expression ']'
-   70           | ID '[' ']'
+   68 Parameterlist: Expression
+   69              | Parameterlist ',' Expression
 
-   71 Parameterlist: Expression
-   72              | Parameterlist ',' Expression
-
-   73 Forloop: FOR '(' Assignment ';' Expression ';' Assignment ')' Statement
-   74        | FOR '(' Assignment ';' Expression ';' ')' Statement
-   75        | FOR '(' Assignment ';' ';' Assignment ')' Statement
-   76        | FOR '(' ';' Expression ';' Assignment ')' Statement
-   77        | FOR '(' Assignment ';' ';' ')' Statement
-   78        | FOR '(' ';' Expression ';' ')' Statement
-   79        | FOR '(' ';' ';' Assignment ')' Statement
-   80        | FOR '(' ';' ';' ')' Statement
+   70 Forloop: FOR '(' Assignment ';' Expression ';' Assignment ')' Statement
+   71        | FOR '(' Assignment ';' Expression ';' ')' Statement
+   72        | FOR '(' Assignment ';' ';' Assignment ')' Statement
+   73        | FOR '(' ';' Expression ';' Assignment ')' Statement
+   74        | FOR '(' Assignment ';' ';' ')' Statement
+   75        | FOR '(' ';' Expression ';' ')' Statement
+   76        | FOR '(' ';' ';' Assignment ')' Statement
+   77        | FOR '(' ';' ';' ')' Statement
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
-    '!' (33) 45 51
-    '&' (38) 56
-    '(' (40) 13 60 64 65 73 74 75 76 77 78 79 80
-    ')' (41) 13 60 64 65 73 74 75 76 77 78 79 80
-    '*' (42) 48
-    '+' (43) 46
-    ',' (44) 12 24 67 72
-    '-' (45) 44 47
-    '/' (47) 49
-    ';' (59) 3 20 30 35 36 37 38 73 74 75 76 77 78 79 80
-    '<' (60) 52 53
-    '=' (61) 43 50 51 52 54
-    '>' (62) 54 55
-    '[' (91) 69 70
-    ']' (93) 69 70
-    '{' (123) 14 15 16 26 39 40
-    '|' (124) 57
-    '}' (125) 14 15 16 26 39 40
+    '(' (40) 13 57 61 62 70 71 72 73 74 75 76 77
+    ')' (41) 13 57 61 62 70 71 72 73 74 75 76 77
+    ',' (44) 12 24 64 69
+    ';' (59) 3 20 30 35 36 37 38 70 71 72 73 74 75 76 77
+    '=' (61) 40
+    '[' (91) 66 67
+    ']' (93) 66 67
+    '{' (123) 14 15 16 26 39
+    '}' (125) 14 15 16 26 39
     error (256)
-    ID <charVal> (258) 13 64 65 68 69 70
-    CHARCON (259) 62
-    STRINGCON (260) 63
+    ID <charVal> (258) 13 61 62 65 66 67
+    CHARCON (259) 59
+    STRINGCON (260) 60
     IF (261) 31 32
     ELSE (262) 32
     RETURN (263) 35 36
     WHILE (264) 33
-    FOR (265) 73 74 75 76 77 78 79 80
+    FOR (265) 70 71 72 73 74 75 76 77
     VOID (266) 8 9 15 27
     EXTERN (267) 6 8 10
     CHAR (268) 28
     INT (269) 29
-    INTCON (270) 61
+    INTCON (270) 58
     STRING (271)
+    AND (272) 53
+    OR (273) 54
+    LT (274) 50
+    GT (275) 52
+    GTEQ (276) 51
+    LTEQ (277) 49
+    PLUS (278) 43
+    EQ (279) 47
+    NOTEQ (280) 48
+    MUL (281) 45
+    DIV (282) 46
+    NOT (283) 41
+    MINUS (284) 42 44
 
 
 Nonterminals, with rules where they appear
 
-    $accept (35)
+    $accept (39)
         on left: 0
-    Program (36)
+    Program (40)
         on left: 1 2
         on right: 0 2
-    Program_piece (37)
+    Program_piece (41)
         on left: 3 4 5
         on right: 2
-    function_declaration (38)
+    function_declaration (42)
         on left: 6 7 8 9 10
         on right: 3
-    Functionhead_list (39)
+    Functionhead_list (43)
         on left: 11 12
         on right: 6 7 8 9 10 12
-    Functionhead <idVal> (40)
+    Functionhead <functionNode> (44)
         on left: 13
         on right: 11 12 14 15 16
-    Function (41)
+    Function (45)
         on left: 14 15 16
         on right: 4
-    Functionbody (42)
+    Functionbody <statementNode> (46)
         on left: 17
         on right: 14 15 16
-    Varlist (43)
+    Varlist (47)
         on left: 18 19
         on right: 17 19
-    Variable_declaration (44)
+    Variable_declaration (48)
         on left: 20
         on right: 5 19
-    Stmtlist (45)
+    Stmtlist <statementNode> (49)
         on left: 21 22
-        on right: 17 22
-    Param_types (46)
+        on right: 17 22 39
+    Param_types <parameterNode> (50)
         on left: 23 24
         on right: 13 24
-    Param_type (47)
+    Param_type <parameterNode> (51)
         on left: 25 26 27
         on right: 23 24
-    Type (48)
+    Type (52)
         on left: 28 29
         on right: 6 7 16 20 25 26
-    Statement (49)
-        on left: 30 31 32 33 34 35 36 37 38 39 40
-        on right: 22 31 32 33 41 42 73 74 75 76 77 78 79 80
-    MultipleStatements (50)
-        on left: 41 42
-        on right: 39 42
-    Assignment (51)
-        on left: 43
-        on right: 37 73 74 75 76 77 79
-    Expression (52)
-        on left: 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63
-        on right: 31 32 33 35 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 60 69 71 72 73 74 76 78
-    Functioncall (53)
-        on left: 64 65
-        on right: 38 58
-    IDlist (54)
-        on left: 66 67
-        on right: 20 67
-    Identifier <idVal> (55)
-        on left: 68 69 70
-        on right: 25 26 43 59 66 67
-    Parameterlist (56)
-        on left: 71 72
-        on right: 65 72
-    Forloop (57)
-        on left: 73 74 75 76 77 78 79 80
+    Statement <statementNode> (53)
+        on left: 30 31 32 33 34 35 36 37 38 39
+        on right: 22 31 32 33 70 71 72 73 74 75 76 77
+    Assignment <assignmentNode> (54)
+        on left: 40
+        on right: 37 70 71 72 73 74 76
+    Expression <expressionNode> (55)
+        on left: 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60
+        on right: 31 32 33 35 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 57 66 68 69 70 71 73 75
+    Functioncall <functionNode> (56)
+        on left: 61 62
+        on right: 38 55
+    IDlist (57)
+        on left: 63 64
+        on right: 20 64
+    Identifier <idVal> (58)
+        on left: 65 66 67
+        on right: 25 26 40 56 63 64
+    Parameterlist (59)
+        on left: 68 69
+        on right: 62 69
+    Forloop (60)
+        on left: 70 71 72 73 74 75 76 77
         on right: 34
 
 
@@ -446,14 +443,14 @@ State 22
 State 23
 
    13 Functionhead: ID . '(' Param_types ')'
-   68 Identifier: ID .
-   69           | ID . '[' Expression ']'
-   70           | ID . '[' ']'
+   65 Identifier: ID .
+   66           | ID . '[' Expression ']'
+   67           | ID . '[' ']'
 
     '('  shift, and go to state 14
     '['  shift, and go to state 38
 
-    $default  reduce using rule 68 (Identifier)
+    $default  reduce using rule 65 (Identifier)
 
 
 State 24
@@ -479,7 +476,7 @@ State 25
 State 26
 
    20 Variable_declaration: Type IDlist . ';'
-   67 IDlist: IDlist . ',' Identifier
+   64 IDlist: IDlist . ',' Identifier
 
     ';'  shift, and go to state 40
     ','  shift, and go to state 41
@@ -487,9 +484,9 @@ State 26
 
 State 27
 
-   66 IDlist: Identifier .
+   63 IDlist: Identifier .
 
-    $default  reduce using rule 66 (IDlist)
+    $default  reduce using rule 63 (IDlist)
 
 
 State 28
@@ -588,8 +585,8 @@ State 37
 
 State 38
 
-   69 Identifier: ID '[' . Expression ']'
-   70           | ID '[' . ']'
+   66 Identifier: ID '[' . Expression ']'
+   67           | ID '[' . ']'
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
@@ -597,8 +594,8 @@ State 38
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
     ']'        shift, and go to state 57
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
     Expression    go to state 60
     Functioncall  go to state 61
@@ -624,7 +621,7 @@ State 40
 
 State 41
 
-   67 IDlist: IDlist ',' . Identifier
+   64 IDlist: IDlist ',' . Identifier
 
     ID  shift, and go to state 44
 
@@ -652,13 +649,13 @@ State 43
 
 State 44
 
-   68 Identifier: ID .
-   69           | ID . '[' Expression ']'
-   70           | ID . '[' ']'
+   65 Identifier: ID .
+   66           | ID . '[' Expression ']'
+   67           | ID . '[' ']'
 
     '['  shift, and go to state 38
 
-    $default  reduce using rule 68 (Identifier)
+    $default  reduce using rule 65 (Identifier)
 
 
 State 45
@@ -733,50 +730,50 @@ State 51
 
 State 52
 
-   64 Functioncall: ID . '(' ')'
-   65             | ID . '(' Parameterlist ')'
-   68 Identifier: ID .
-   69           | ID . '[' Expression ']'
-   70           | ID . '[' ']'
+   61 Functioncall: ID . '(' ')'
+   62             | ID . '(' Parameterlist ')'
+   65 Identifier: ID .
+   66           | ID . '[' Expression ']'
+   67           | ID . '[' ']'
 
     '('  shift, and go to state 79
     '['  shift, and go to state 38
 
-    $default  reduce using rule 68 (Identifier)
+    $default  reduce using rule 65 (Identifier)
 
 
 State 53
 
-   62 Expression: CHARCON .
+   59 Expression: CHARCON .
 
-    $default  reduce using rule 62 (Expression)
+    $default  reduce using rule 59 (Expression)
 
 
 State 54
 
-   63 Expression: STRINGCON .
+   60 Expression: STRINGCON .
 
-    $default  reduce using rule 63 (Expression)
+    $default  reduce using rule 60 (Expression)
 
 
 State 55
 
-   61 Expression: INTCON .
+   58 Expression: INTCON .
 
-    $default  reduce using rule 61 (Expression)
+    $default  reduce using rule 58 (Expression)
 
 
 State 56
 
-   60 Expression: '(' . Expression ')'
+   57 Expression: '(' . Expression ')'
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
     Expression    go to state 80
     Functioncall  go to state 61
@@ -785,22 +782,22 @@ State 56
 
 State 57
 
-   70 Identifier: ID '[' ']' .
+   67 Identifier: ID '[' ']' .
 
-    $default  reduce using rule 70 (Identifier)
+    $default  reduce using rule 67 (Identifier)
 
 
 State 58
 
-   45 Expression: '!' . Expression
+   41 Expression: NOT . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
     Expression    go to state 81
     Functioncall  go to state 61
@@ -809,15 +806,15 @@ State 58
 
 State 59
 
-   44 Expression: '-' . Expression
+   42 Expression: MINUS . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
     Expression    go to state 82
     Functioncall  go to state 61
@@ -826,59 +823,61 @@ State 59
 
 State 60
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-   69 Identifier: ID '[' Expression . ']'
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+   66 Identifier: ID '[' Expression . ']'
 
-    '&'  shift, and go to state 83
-    '|'  shift, and go to state 84
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    ']'  shift, and go to state 91
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    AND    shift, and go to state 83
+    OR     shift, and go to state 84
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    ']'    shift, and go to state 94
+    MINUS  shift, and go to state 95
 
 
 State 61
 
-   58 Expression: Functioncall .
+   55 Expression: Functioncall .
 
-    $default  reduce using rule 58 (Expression)
+    $default  reduce using rule 55 (Expression)
 
 
 State 62
 
-   59 Expression: Identifier .
+   56 Expression: Identifier .
 
-    $default  reduce using rule 59 (Expression)
+    $default  reduce using rule 56 (Expression)
 
 
 State 63
 
    16 Function: Type Functionhead '{' Functionbody . '}'
 
-    '}'  shift, and go to state 94
+    '}'  shift, and go to state 96
 
 
 State 64
 
-   67 IDlist: IDlist ',' Identifier .
+   64 IDlist: IDlist ',' Identifier .
 
-    $default  reduce using rule 67 (IDlist)
+    $default  reduce using rule 64 (IDlist)
 
 
 State 65
@@ -892,7 +891,7 @@ State 66
 
    26 Param_type: Type Identifier '{' . '}'
 
-    '}'  shift, and go to state 95
+    '}'  shift, and go to state 97
 
 
 State 67
@@ -912,10 +911,10 @@ State 68
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 96
+    Expression    go to state 98
     Functioncall  go to state 61
     Identifier    go to state 62
 
@@ -930,11 +929,11 @@ State 69
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    ';'        shift, and go to state 97
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    ';'        shift, and go to state 99
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 98
+    Expression    go to state 100
     Functioncall  go to state 61
     Identifier    go to state 62
 
@@ -948,48 +947,35 @@ State 70
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 99
+    Expression    go to state 101
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 71
 
-   73 Forloop: FOR . '(' Assignment ';' Expression ';' Assignment ')' Statement
-   74        | FOR . '(' Assignment ';' Expression ';' ')' Statement
-   75        | FOR . '(' Assignment ';' ';' Assignment ')' Statement
-   76        | FOR . '(' ';' Expression ';' Assignment ')' Statement
-   77        | FOR . '(' Assignment ';' ';' ')' Statement
-   78        | FOR . '(' ';' Expression ';' ')' Statement
-   79        | FOR . '(' ';' ';' Assignment ')' Statement
-   80        | FOR . '(' ';' ';' ')' Statement
+   70 Forloop: FOR . '(' Assignment ';' Expression ';' Assignment ')' Statement
+   71        | FOR . '(' Assignment ';' Expression ';' ')' Statement
+   72        | FOR . '(' Assignment ';' ';' Assignment ')' Statement
+   73        | FOR . '(' ';' Expression ';' Assignment ')' Statement
+   74        | FOR . '(' Assignment ';' ';' ')' Statement
+   75        | FOR . '(' ';' Expression ';' ')' Statement
+   76        | FOR . '(' ';' ';' Assignment ')' Statement
+   77        | FOR . '(' ';' ';' ')' Statement
 
-    '('  shift, and go to state 100
+    '('  shift, and go to state 102
 
 
 State 72
 
-   39 Statement: '{' . MultipleStatements '}'
-   40          | '{' . '}'
+   39 Statement: '{' . Stmtlist '}'
 
-    ID      shift, and go to state 52
-    IF      shift, and go to state 68
-    RETURN  shift, and go to state 69
-    WHILE   shift, and go to state 70
-    FOR     shift, and go to state 71
-    '{'     shift, and go to state 72
-    '}'     shift, and go to state 101
-    ';'     shift, and go to state 73
+    $default  reduce using rule 21 (Stmtlist)
 
-    Statement           go to state 102
-    MultipleStatements  go to state 103
-    Assignment          go to state 75
-    Functioncall        go to state 76
-    Identifier          go to state 77
-    Forloop             go to state 78
+    Stmtlist  go to state 103
 
 
 State 73
@@ -1022,7 +1008,7 @@ State 76
 
 State 77
 
-   43 Assignment: Identifier . '=' Expression
+   40 Assignment: Identifier . '=' Expression
 
     '='  shift, and go to state 106
 
@@ -1036,8 +1022,8 @@ State 78
 
 State 79
 
-   64 Functioncall: ID '(' . ')'
-   65             | ID '(' . Parameterlist ')'
+   61 Functioncall: ID '(' . ')'
+   62             | ID '(' . Parameterlist ')'
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
@@ -1045,8 +1031,8 @@ State 79
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
     ')'        shift, and go to state 107
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
     Expression     go to state 108
     Functioncall   go to state 61
@@ -1056,266 +1042,338 @@ State 79
 
 State 80
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-   60           | '(' Expression . ')'
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+   57           | '(' Expression . ')'
 
-    '&'  shift, and go to state 83
-    '|'  shift, and go to state 84
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    ')'  shift, and go to state 110
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    AND    shift, and go to state 83
+    OR     shift, and go to state 84
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    ')'    shift, and go to state 110
+    MINUS  shift, and go to state 95
 
 
 State 81
 
-   45 Expression: '!' Expression .
-   46           | Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   41 Expression: NOT Expression .
+   43           | Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    $default  reduce using rule 45 (Expression)
+    $default  reduce using rule 41 (Expression)
 
 
 State 82
 
-   44 Expression: '-' Expression .
-   46           | Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   42 Expression: MINUS Expression .
+   43           | Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    $default  reduce using rule 44 (Expression)
+    $default  reduce using rule 42 (Expression)
 
 
 State 83
 
-   56 Expression: Expression '&' . '&' Expression
-
-    '&'  shift, and go to state 111
-
-
-State 84
-
-   57 Expression: Expression '|' . '|' Expression
-
-    '|'  shift, and go to state 112
-
-
-State 85
-
-   52 Expression: Expression '<' . '=' Expression
-   53           | Expression '<' . Expression
+   53 Expression: Expression AND . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
-    '='        shift, and go to state 113
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 114
+    Expression    go to state 111
+    Functioncall  go to state 61
+    Identifier    go to state 62
+
+
+State 84
+
+   54 Expression: Expression OR . Expression
+
+    ID         shift, and go to state 52
+    CHARCON    shift, and go to state 53
+    STRINGCON  shift, and go to state 54
+    INTCON     shift, and go to state 55
+    '('        shift, and go to state 56
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
+
+    Expression    go to state 112
+    Functioncall  go to state 61
+    Identifier    go to state 62
+
+
+State 85
+
+   50 Expression: Expression LT . Expression
+
+    ID         shift, and go to state 52
+    CHARCON    shift, and go to state 53
+    STRINGCON  shift, and go to state 54
+    INTCON     shift, and go to state 55
+    '('        shift, and go to state 56
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
+
+    Expression    go to state 113
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 86
 
-   54 Expression: Expression '>' . '=' Expression
-   55           | Expression '>' . Expression
+   52 Expression: Expression GT . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
-    '='        shift, and go to state 115
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 116
+    Expression    go to state 114
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 87
 
-   50 Expression: Expression '=' . '=' Expression
-
-    '='  shift, and go to state 117
-
-
-State 88
-
-   46 Expression: Expression '+' . Expression
+   51 Expression: Expression GTEQ . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 118
+    Expression    go to state 115
+    Functioncall  go to state 61
+    Identifier    go to state 62
+
+
+State 88
+
+   49 Expression: Expression LTEQ . Expression
+
+    ID         shift, and go to state 52
+    CHARCON    shift, and go to state 53
+    STRINGCON  shift, and go to state 54
+    INTCON     shift, and go to state 55
+    '('        shift, and go to state 56
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
+
+    Expression    go to state 116
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 89
 
-   48 Expression: Expression '*' . Expression
+   43 Expression: Expression PLUS . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 119
+    Expression    go to state 117
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 90
 
-   49 Expression: Expression '/' . Expression
+   47 Expression: Expression EQ . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 120
+    Expression    go to state 118
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 91
 
-   69 Identifier: ID '[' Expression ']' .
-
-    $default  reduce using rule 69 (Identifier)
-
-
-State 92
-
-   51 Expression: Expression '!' . '=' Expression
-
-    '='  shift, and go to state 121
-
-
-State 93
-
-   47 Expression: Expression '-' . Expression
+   48 Expression: Expression NOTEQ . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 122
+    Expression    go to state 119
+    Functioncall  go to state 61
+    Identifier    go to state 62
+
+
+State 92
+
+   45 Expression: Expression MUL . Expression
+
+    ID         shift, and go to state 52
+    CHARCON    shift, and go to state 53
+    STRINGCON  shift, and go to state 54
+    INTCON     shift, and go to state 55
+    '('        shift, and go to state 56
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
+
+    Expression    go to state 120
+    Functioncall  go to state 61
+    Identifier    go to state 62
+
+
+State 93
+
+   46 Expression: Expression DIV . Expression
+
+    ID         shift, and go to state 52
+    CHARCON    shift, and go to state 53
+    STRINGCON  shift, and go to state 54
+    INTCON     shift, and go to state 55
+    '('        shift, and go to state 56
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
+
+    Expression    go to state 121
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 94
 
+   66 Identifier: ID '[' Expression ']' .
+
+    $default  reduce using rule 66 (Identifier)
+
+
+State 95
+
+   44 Expression: Expression MINUS . Expression
+
+    ID         shift, and go to state 52
+    CHARCON    shift, and go to state 53
+    STRINGCON  shift, and go to state 54
+    INTCON     shift, and go to state 55
+    '('        shift, and go to state 56
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
+
+    Expression    go to state 122
+    Functioncall  go to state 61
+    Identifier    go to state 62
+
+
+State 96
+
    16 Function: Type Functionhead '{' Functionbody '}' .
 
     $default  reduce using rule 16 (Function)
 
 
-State 95
+State 97
 
    26 Param_type: Type Identifier '{' '}' .
 
     $default  reduce using rule 26 (Param_type)
 
 
-State 96
+State 98
 
    31 Statement: IF Expression . Statement
    32          | IF Expression . Statement ELSE Statement
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
     ID      shift, and go to state 52
     IF      shift, and go to state 68
     RETURN  shift, and go to state 69
     WHILE   shift, and go to state 70
     FOR     shift, and go to state 71
-    '&'     shift, and go to state 83
-    '|'     shift, and go to state 84
-    '<'     shift, and go to state 85
-    '>'     shift, and go to state 86
-    '='     shift, and go to state 87
-    '+'     shift, and go to state 88
-    '*'     shift, and go to state 89
-    '/'     shift, and go to state 90
+    AND     shift, and go to state 83
+    OR      shift, and go to state 84
+    LT      shift, and go to state 85
+    GT      shift, and go to state 86
+    GTEQ    shift, and go to state 87
+    LTEQ    shift, and go to state 88
+    PLUS    shift, and go to state 89
+    EQ      shift, and go to state 90
+    NOTEQ   shift, and go to state 91
+    MUL     shift, and go to state 92
+    DIV     shift, and go to state 93
     '{'     shift, and go to state 72
     ';'     shift, and go to state 73
-    '!'     shift, and go to state 92
-    '-'     shift, and go to state 93
+    MINUS   shift, and go to state 95
 
     Statement     go to state 123
     Assignment    go to state 75
@@ -1324,75 +1382,79 @@ State 96
     Forloop       go to state 78
 
 
-State 97
+State 99
 
    36 Statement: RETURN ';' .
 
     $default  reduce using rule 36 (Statement)
 
 
-State 98
+State 100
 
    35 Statement: RETURN Expression . ';'
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    '&'  shift, and go to state 83
-    '|'  shift, and go to state 84
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    ';'  shift, and go to state 124
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    AND    shift, and go to state 83
+    OR     shift, and go to state 84
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    ';'    shift, and go to state 124
+    MINUS  shift, and go to state 95
 
 
-State 99
+State 101
 
    33 Statement: WHILE Expression . Statement
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
     ID      shift, and go to state 52
     IF      shift, and go to state 68
     RETURN  shift, and go to state 69
     WHILE   shift, and go to state 70
     FOR     shift, and go to state 71
-    '&'     shift, and go to state 83
-    '|'     shift, and go to state 84
-    '<'     shift, and go to state 85
-    '>'     shift, and go to state 86
-    '='     shift, and go to state 87
-    '+'     shift, and go to state 88
-    '*'     shift, and go to state 89
-    '/'     shift, and go to state 90
+    AND     shift, and go to state 83
+    OR      shift, and go to state 84
+    LT      shift, and go to state 85
+    GT      shift, and go to state 86
+    GTEQ    shift, and go to state 87
+    LTEQ    shift, and go to state 88
+    PLUS    shift, and go to state 89
+    EQ      shift, and go to state 90
+    NOTEQ   shift, and go to state 91
+    MUL     shift, and go to state 92
+    DIV     shift, and go to state 93
     '{'     shift, and go to state 72
     ';'     shift, and go to state 73
-    '!'     shift, and go to state 92
-    '-'     shift, and go to state 93
+    MINUS   shift, and go to state 95
 
     Statement     go to state 125
     Assignment    go to state 75
@@ -1401,16 +1463,16 @@ State 99
     Forloop       go to state 78
 
 
-State 100
+State 102
 
-   73 Forloop: FOR '(' . Assignment ';' Expression ';' Assignment ')' Statement
-   74        | FOR '(' . Assignment ';' Expression ';' ')' Statement
-   75        | FOR '(' . Assignment ';' ';' Assignment ')' Statement
-   76        | FOR '(' . ';' Expression ';' Assignment ')' Statement
-   77        | FOR '(' . Assignment ';' ';' ')' Statement
-   78        | FOR '(' . ';' Expression ';' ')' Statement
-   79        | FOR '(' . ';' ';' Assignment ')' Statement
-   80        | FOR '(' . ';' ';' ')' Statement
+   70 Forloop: FOR '(' . Assignment ';' Expression ';' Assignment ')' Statement
+   71        | FOR '(' . Assignment ';' Expression ';' ')' Statement
+   72        | FOR '(' . Assignment ';' ';' Assignment ')' Statement
+   73        | FOR '(' . ';' Expression ';' Assignment ')' Statement
+   74        | FOR '(' . Assignment ';' ';' ')' Statement
+   75        | FOR '(' . ';' Expression ';' ')' Statement
+   76        | FOR '(' . ';' ';' Assignment ')' Statement
+   77        | FOR '(' . ';' ';' ')' Statement
 
     ID   shift, and go to state 44
     ';'  shift, and go to state 126
@@ -1419,24 +1481,10 @@ State 100
     Identifier  go to state 77
 
 
-State 101
-
-   40 Statement: '{' '}' .
-
-    $default  reduce using rule 40 (Statement)
-
-
-State 102
-
-   41 MultipleStatements: Statement .
-
-    $default  reduce using rule 41 (MultipleStatements)
-
-
 State 103
 
-   39 Statement: '{' MultipleStatements . '}'
-   42 MultipleStatements: MultipleStatements . Statement
+   22 Stmtlist: Stmtlist . Statement
+   39 Statement: '{' Stmtlist . '}'
 
     ID      shift, and go to state 52
     IF      shift, and go to state 68
@@ -1447,7 +1495,7 @@ State 103
     '}'     shift, and go to state 128
     ';'     shift, and go to state 73
 
-    Statement     go to state 129
+    Statement     go to state 74
     Assignment    go to state 75
     Functioncall  go to state 76
     Identifier    go to state 77
@@ -1470,316 +1518,370 @@ State 105
 
 State 106
 
-   43 Assignment: Identifier '=' . Expression
+   40 Assignment: Identifier '=' . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 130
+    Expression    go to state 129
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 107
 
-   64 Functioncall: ID '(' ')' .
+   61 Functioncall: ID '(' ')' .
 
-    $default  reduce using rule 64 (Functioncall)
+    $default  reduce using rule 61 (Functioncall)
 
 
 State 108
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-   71 Parameterlist: Expression .
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+   68 Parameterlist: Expression .
 
-    '&'  shift, and go to state 83
-    '|'  shift, and go to state 84
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    AND    shift, and go to state 83
+    OR     shift, and go to state 84
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    $default  reduce using rule 71 (Parameterlist)
+    $default  reduce using rule 68 (Parameterlist)
 
 
 State 109
 
-   65 Functioncall: ID '(' Parameterlist . ')'
-   72 Parameterlist: Parameterlist . ',' Expression
+   62 Functioncall: ID '(' Parameterlist . ')'
+   69 Parameterlist: Parameterlist . ',' Expression
 
-    ')'  shift, and go to state 131
-    ','  shift, and go to state 132
+    ')'  shift, and go to state 130
+    ','  shift, and go to state 131
 
 
 State 110
 
-   60 Expression: '(' Expression ')' .
+   57 Expression: '(' Expression ')' .
 
-    $default  reduce using rule 60 (Expression)
+    $default  reduce using rule 57 (Expression)
 
 
 State 111
 
-   56 Expression: Expression '&' '&' . Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   53           | Expression AND Expression .
+   54           | Expression . OR Expression
 
-    ID         shift, and go to state 52
-    CHARCON    shift, and go to state 53
-    STRINGCON  shift, and go to state 54
-    INTCON     shift, and go to state 55
-    '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
-
-    Expression    go to state 133
-    Functioncall  go to state 61
-    Identifier    go to state 62
-
-
-State 112
-
-   57 Expression: Expression '|' '|' . Expression
-
-    ID         shift, and go to state 52
-    CHARCON    shift, and go to state 53
-    STRINGCON  shift, and go to state 54
-    INTCON     shift, and go to state 55
-    '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
-
-    Expression    go to state 134
-    Functioncall  go to state 61
-    Identifier    go to state 62
-
-
-State 113
-
-   52 Expression: Expression '<' '=' . Expression
-
-    ID         shift, and go to state 52
-    CHARCON    shift, and go to state 53
-    STRINGCON  shift, and go to state 54
-    INTCON     shift, and go to state 55
-    '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
-
-    Expression    go to state 135
-    Functioncall  go to state 61
-    Identifier    go to state 62
-
-
-State 114
-
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   53           | Expression '<' Expression .
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
 
     $default  reduce using rule 53 (Expression)
 
 
+State 112
+
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+   54           | Expression OR Expression .
+
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
+
+    $default  reduce using rule 54 (Expression)
+
+
+State 113
+
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   50           | Expression LT Expression .
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
+
+    $default  reduce using rule 50 (Expression)
+
+
+State 114
+
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   52           | Expression GT Expression .
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
+
+    $default  reduce using rule 52 (Expression)
+
+
 State 115
 
-   54 Expression: Expression '>' '=' . Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   51           | Expression GTEQ Expression .
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    ID         shift, and go to state 52
-    CHARCON    shift, and go to state 53
-    STRINGCON  shift, and go to state 54
-    INTCON     shift, and go to state 55
-    '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    Expression    go to state 136
-    Functioncall  go to state 61
-    Identifier    go to state 62
+    $default  reduce using rule 51 (Expression)
 
 
 State 116
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   55           | Expression '>' Expression .
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   49           | Expression LTEQ Expression .
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    $default  reduce using rule 55 (Expression)
+    $default  reduce using rule 49 (Expression)
 
 
 State 117
 
-   50 Expression: Expression '=' '=' . Expression
+   43 Expression: Expression . PLUS Expression
+   43           | Expression PLUS Expression .
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    ID         shift, and go to state 52
-    CHARCON    shift, and go to state 53
-    STRINGCON  shift, and go to state 54
-    INTCON     shift, and go to state 55
-    '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    Expression    go to state 137
-    Functioncall  go to state 61
-    Identifier    go to state 62
+    $default  reduce using rule 43 (Expression)
 
 
 State 118
 
-   46 Expression: Expression . '+' Expression
-   46           | Expression '+' Expression .
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   47           | Expression EQ Expression .
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    $default  reduce using rule 46 (Expression)
+    $default  reduce using rule 47 (Expression)
 
 
 State 119
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   48           | Expression '*' Expression .
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   48           | Expression NOTEQ Expression .
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
 
     $default  reduce using rule 48 (Expression)
 
 
 State 120
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   49           | Expression '/' Expression .
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   45           | Expression MUL Expression .
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    $default  reduce using rule 49 (Expression)
+    $default  reduce using rule 45 (Expression)
 
 
 State 121
 
-   51 Expression: Expression '!' '=' . Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   46           | Expression DIV Expression .
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    ID         shift, and go to state 52
-    CHARCON    shift, and go to state 53
-    STRINGCON  shift, and go to state 54
-    INTCON     shift, and go to state 55
-    '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    MINUS  shift, and go to state 95
 
-    Expression    go to state 138
-    Functioncall  go to state 61
-    Identifier    go to state 62
+    $default  reduce using rule 46 (Expression)
 
 
 State 122
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   47           | Expression '-' Expression .
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   44           | Expression MINUS Expression .
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    MINUS  shift, and go to state 95
 
-    $default  reduce using rule 47 (Expression)
+    $default  reduce using rule 44 (Expression)
 
 
 State 123
@@ -1787,7 +1889,7 @@ State 123
    31 Statement: IF Expression Statement .
    32          | IF Expression Statement . ELSE Statement
 
-    ELSE  shift, and go to state 139
+    ELSE  shift, and go to state 132
 
     ELSE      [reduce using rule 31 (Statement)]
     $default  reduce using rule 31 (Statement)
@@ -1809,256 +1911,99 @@ State 125
 
 State 126
 
-   76 Forloop: FOR '(' ';' . Expression ';' Assignment ')' Statement
-   78        | FOR '(' ';' . Expression ';' ')' Statement
-   79        | FOR '(' ';' . ';' Assignment ')' Statement
-   80        | FOR '(' ';' . ';' ')' Statement
+   73 Forloop: FOR '(' ';' . Expression ';' Assignment ')' Statement
+   75        | FOR '(' ';' . Expression ';' ')' Statement
+   76        | FOR '(' ';' . ';' Assignment ')' Statement
+   77        | FOR '(' ';' . ';' ')' Statement
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    ';'        shift, and go to state 140
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    ';'        shift, and go to state 133
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 141
+    Expression    go to state 134
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
 State 127
 
-   73 Forloop: FOR '(' Assignment . ';' Expression ';' Assignment ')' Statement
-   74        | FOR '(' Assignment . ';' Expression ';' ')' Statement
-   75        | FOR '(' Assignment . ';' ';' Assignment ')' Statement
-   77        | FOR '(' Assignment . ';' ';' ')' Statement
+   70 Forloop: FOR '(' Assignment . ';' Expression ';' Assignment ')' Statement
+   71        | FOR '(' Assignment . ';' Expression ';' ')' Statement
+   72        | FOR '(' Assignment . ';' ';' Assignment ')' Statement
+   74        | FOR '(' Assignment . ';' ';' ')' Statement
 
-    ';'  shift, and go to state 142
+    ';'  shift, and go to state 135
 
 
 State 128
 
-   39 Statement: '{' MultipleStatements '}' .
+   39 Statement: '{' Stmtlist '}' .
 
     $default  reduce using rule 39 (Statement)
 
 
 State 129
 
-   42 MultipleStatements: MultipleStatements Statement .
+   40 Assignment: Identifier '=' Expression .
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
 
-    $default  reduce using rule 42 (MultipleStatements)
+    AND    shift, and go to state 83
+    OR     shift, and go to state 84
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
+
+    $default  reduce using rule 40 (Assignment)
 
 
 State 130
 
-   43 Assignment: Identifier '=' Expression .
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
+   62 Functioncall: ID '(' Parameterlist ')' .
 
-    '&'  shift, and go to state 83
-    '|'  shift, and go to state 84
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
-
-    $default  reduce using rule 43 (Assignment)
+    $default  reduce using rule 62 (Functioncall)
 
 
 State 131
 
-   65 Functioncall: ID '(' Parameterlist ')' .
-
-    $default  reduce using rule 65 (Functioncall)
-
-
-State 132
-
-   72 Parameterlist: Parameterlist ',' . Expression
+   69 Parameterlist: Parameterlist ',' . Expression
 
     ID         shift, and go to state 52
     CHARCON    shift, and go to state 53
     STRINGCON  shift, and go to state 54
     INTCON     shift, and go to state 55
     '('        shift, and go to state 56
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
 
-    Expression    go to state 143
+    Expression    go to state 136
     Functioncall  go to state 61
     Identifier    go to state 62
 
 
-State 133
-
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   56           | Expression '&' '&' Expression .
-   57           | Expression . '|' '|' Expression
-
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
-
-    $default  reduce using rule 56 (Expression)
-
-
-State 134
-
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-   57           | Expression '|' '|' Expression .
-
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
-
-    $default  reduce using rule 57 (Expression)
-
-
-State 135
-
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   52           | Expression '<' '=' Expression .
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
-
-    $default  reduce using rule 52 (Expression)
-
-
-State 136
-
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   54           | Expression '>' '=' Expression .
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
-
-    $default  reduce using rule 54 (Expression)
-
-
-State 137
-
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   50           | Expression '=' '=' Expression .
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
-
-    $default  reduce using rule 50 (Expression)
-
-
-State 138
-
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   51           | Expression '!' '=' Expression .
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
-
-    $default  reduce using rule 51 (Expression)
-
-
-State 139
+State 132
 
    32 Statement: IF Expression Statement ELSE . Statement
 
@@ -2070,17 +2015,147 @@ State 139
     '{'     shift, and go to state 72
     ';'     shift, and go to state 73
 
-    Statement     go to state 144
+    Statement     go to state 137
     Assignment    go to state 75
     Functioncall  go to state 76
     Identifier    go to state 77
     Forloop       go to state 78
 
 
+State 133
+
+   76 Forloop: FOR '(' ';' ';' . Assignment ')' Statement
+   77        | FOR '(' ';' ';' . ')' Statement
+
+    ID   shift, and go to state 44
+    ')'  shift, and go to state 138
+
+    Assignment  go to state 139
+    Identifier  go to state 77
+
+
+State 134
+
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+   73 Forloop: FOR '(' ';' Expression . ';' Assignment ')' Statement
+   75        | FOR '(' ';' Expression . ';' ')' Statement
+
+    AND    shift, and go to state 83
+    OR     shift, and go to state 84
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    ';'    shift, and go to state 140
+    MINUS  shift, and go to state 95
+
+
+State 135
+
+   70 Forloop: FOR '(' Assignment ';' . Expression ';' Assignment ')' Statement
+   71        | FOR '(' Assignment ';' . Expression ';' ')' Statement
+   72        | FOR '(' Assignment ';' . ';' Assignment ')' Statement
+   74        | FOR '(' Assignment ';' . ';' ')' Statement
+
+    ID         shift, and go to state 52
+    CHARCON    shift, and go to state 53
+    STRINGCON  shift, and go to state 54
+    INTCON     shift, and go to state 55
+    '('        shift, and go to state 56
+    ';'        shift, and go to state 141
+    NOT        shift, and go to state 58
+    MINUS      shift, and go to state 59
+
+    Expression    go to state 142
+    Functioncall  go to state 61
+    Identifier    go to state 62
+
+
+State 136
+
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+   69 Parameterlist: Parameterlist ',' Expression .
+
+    AND    shift, and go to state 83
+    OR     shift, and go to state 84
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    MINUS  shift, and go to state 95
+
+    $default  reduce using rule 69 (Parameterlist)
+
+
+State 137
+
+   32 Statement: IF Expression Statement ELSE Statement .
+
+    $default  reduce using rule 32 (Statement)
+
+
+State 138
+
+   77 Forloop: FOR '(' ';' ';' ')' . Statement
+
+    ID      shift, and go to state 52
+    IF      shift, and go to state 68
+    RETURN  shift, and go to state 69
+    WHILE   shift, and go to state 70
+    FOR     shift, and go to state 71
+    '{'     shift, and go to state 72
+    ';'     shift, and go to state 73
+
+    Statement     go to state 143
+    Assignment    go to state 75
+    Functioncall  go to state 76
+    Identifier    go to state 77
+    Forloop       go to state 78
+
+
+State 139
+
+   76 Forloop: FOR '(' ';' ';' Assignment . ')' Statement
+
+    ')'  shift, and go to state 144
+
+
 State 140
 
-   79 Forloop: FOR '(' ';' ';' . Assignment ')' Statement
-   80        | FOR '(' ';' ';' . ')' Statement
+   73 Forloop: FOR '(' ';' Expression ';' . Assignment ')' Statement
+   75        | FOR '(' ';' Expression ';' . ')' Statement
 
     ID   shift, and go to state 44
     ')'  shift, and go to state 145
@@ -2091,95 +2166,58 @@ State 140
 
 State 141
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-   76 Forloop: FOR '(' ';' Expression . ';' Assignment ')' Statement
-   78        | FOR '(' ';' Expression . ';' ')' Statement
+   72 Forloop: FOR '(' Assignment ';' ';' . Assignment ')' Statement
+   74        | FOR '(' Assignment ';' ';' . ')' Statement
 
-    '&'  shift, and go to state 83
-    '|'  shift, and go to state 84
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    ';'  shift, and go to state 147
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    ID   shift, and go to state 44
+    ')'  shift, and go to state 147
+
+    Assignment  go to state 148
+    Identifier  go to state 77
 
 
 State 142
 
-   73 Forloop: FOR '(' Assignment ';' . Expression ';' Assignment ')' Statement
-   74        | FOR '(' Assignment ';' . Expression ';' ')' Statement
-   75        | FOR '(' Assignment ';' . ';' Assignment ')' Statement
-   77        | FOR '(' Assignment ';' . ';' ')' Statement
+   43 Expression: Expression . PLUS Expression
+   44           | Expression . MINUS Expression
+   45           | Expression . MUL Expression
+   46           | Expression . DIV Expression
+   47           | Expression . EQ Expression
+   48           | Expression . NOTEQ Expression
+   49           | Expression . LTEQ Expression
+   50           | Expression . LT Expression
+   51           | Expression . GTEQ Expression
+   52           | Expression . GT Expression
+   53           | Expression . AND Expression
+   54           | Expression . OR Expression
+   70 Forloop: FOR '(' Assignment ';' Expression . ';' Assignment ')' Statement
+   71        | FOR '(' Assignment ';' Expression . ';' ')' Statement
 
-    ID         shift, and go to state 52
-    CHARCON    shift, and go to state 53
-    STRINGCON  shift, and go to state 54
-    INTCON     shift, and go to state 55
-    '('        shift, and go to state 56
-    ';'        shift, and go to state 148
-    '!'        shift, and go to state 58
-    '-'        shift, and go to state 59
-
-    Expression    go to state 149
-    Functioncall  go to state 61
-    Identifier    go to state 62
+    AND    shift, and go to state 83
+    OR     shift, and go to state 84
+    LT     shift, and go to state 85
+    GT     shift, and go to state 86
+    GTEQ   shift, and go to state 87
+    LTEQ   shift, and go to state 88
+    PLUS   shift, and go to state 89
+    EQ     shift, and go to state 90
+    NOTEQ  shift, and go to state 91
+    MUL    shift, and go to state 92
+    DIV    shift, and go to state 93
+    ';'    shift, and go to state 149
+    MINUS  shift, and go to state 95
 
 
 State 143
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-   72 Parameterlist: Parameterlist ',' Expression .
+   77 Forloop: FOR '(' ';' ';' ')' Statement .
 
-    '&'  shift, and go to state 83
-    '|'  shift, and go to state 84
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
-
-    $default  reduce using rule 72 (Parameterlist)
+    $default  reduce using rule 77 (Forloop)
 
 
 State 144
 
-   32 Statement: IF Expression Statement ELSE Statement .
-
-    $default  reduce using rule 32 (Statement)
-
-
-State 145
-
-   80 Forloop: FOR '(' ';' ';' ')' . Statement
+   76 Forloop: FOR '(' ';' ';' Assignment ')' . Statement
 
     ID      shift, and go to state 52
     IF      shift, and go to state 68
@@ -2196,77 +2234,87 @@ State 145
     Forloop       go to state 78
 
 
+State 145
+
+   75 Forloop: FOR '(' ';' Expression ';' ')' . Statement
+
+    ID      shift, and go to state 52
+    IF      shift, and go to state 68
+    RETURN  shift, and go to state 69
+    WHILE   shift, and go to state 70
+    FOR     shift, and go to state 71
+    '{'     shift, and go to state 72
+    ';'     shift, and go to state 73
+
+    Statement     go to state 151
+    Assignment    go to state 75
+    Functioncall  go to state 76
+    Identifier    go to state 77
+    Forloop       go to state 78
+
+
 State 146
 
-   79 Forloop: FOR '(' ';' ';' Assignment . ')' Statement
+   73 Forloop: FOR '(' ';' Expression ';' Assignment . ')' Statement
 
-    ')'  shift, and go to state 151
+    ')'  shift, and go to state 152
 
 
 State 147
 
-   76 Forloop: FOR '(' ';' Expression ';' . Assignment ')' Statement
-   78        | FOR '(' ';' Expression ';' . ')' Statement
+   74 Forloop: FOR '(' Assignment ';' ';' ')' . Statement
 
-    ID   shift, and go to state 44
-    ')'  shift, and go to state 152
+    ID      shift, and go to state 52
+    IF      shift, and go to state 68
+    RETURN  shift, and go to state 69
+    WHILE   shift, and go to state 70
+    FOR     shift, and go to state 71
+    '{'     shift, and go to state 72
+    ';'     shift, and go to state 73
 
-    Assignment  go to state 153
-    Identifier  go to state 77
+    Statement     go to state 153
+    Assignment    go to state 75
+    Functioncall  go to state 76
+    Identifier    go to state 77
+    Forloop       go to state 78
 
 
 State 148
 
-   75 Forloop: FOR '(' Assignment ';' ';' . Assignment ')' Statement
-   77        | FOR '(' Assignment ';' ';' . ')' Statement
+   72 Forloop: FOR '(' Assignment ';' ';' Assignment . ')' Statement
 
-    ID   shift, and go to state 44
     ')'  shift, and go to state 154
-
-    Assignment  go to state 155
-    Identifier  go to state 77
 
 
 State 149
 
-   46 Expression: Expression . '+' Expression
-   47           | Expression . '-' Expression
-   48           | Expression . '*' Expression
-   49           | Expression . '/' Expression
-   50           | Expression . '=' '=' Expression
-   51           | Expression . '!' '=' Expression
-   52           | Expression . '<' '=' Expression
-   53           | Expression . '<' Expression
-   54           | Expression . '>' '=' Expression
-   55           | Expression . '>' Expression
-   56           | Expression . '&' '&' Expression
-   57           | Expression . '|' '|' Expression
-   73 Forloop: FOR '(' Assignment ';' Expression . ';' Assignment ')' Statement
-   74        | FOR '(' Assignment ';' Expression . ';' ')' Statement
+   70 Forloop: FOR '(' Assignment ';' Expression ';' . Assignment ')' Statement
+   71        | FOR '(' Assignment ';' Expression ';' . ')' Statement
 
-    '&'  shift, and go to state 83
-    '|'  shift, and go to state 84
-    '<'  shift, and go to state 85
-    '>'  shift, and go to state 86
-    '='  shift, and go to state 87
-    '+'  shift, and go to state 88
-    '*'  shift, and go to state 89
-    '/'  shift, and go to state 90
-    ';'  shift, and go to state 156
-    '!'  shift, and go to state 92
-    '-'  shift, and go to state 93
+    ID   shift, and go to state 44
+    ')'  shift, and go to state 155
+
+    Assignment  go to state 156
+    Identifier  go to state 77
 
 
 State 150
 
-   80 Forloop: FOR '(' ';' ';' ')' Statement .
+   76 Forloop: FOR '(' ';' ';' Assignment ')' Statement .
 
-    $default  reduce using rule 80 (Forloop)
+    $default  reduce using rule 76 (Forloop)
 
 
 State 151
 
-   79 Forloop: FOR '(' ';' ';' Assignment ')' . Statement
+   75 Forloop: FOR '(' ';' Expression ';' ')' Statement .
+
+    $default  reduce using rule 75 (Forloop)
+
+
+State 152
+
+   73 Forloop: FOR '(' ';' Expression ';' Assignment ')' . Statement
 
     ID      shift, and go to state 52
     IF      shift, and go to state 68
@@ -2283,9 +2331,16 @@ State 151
     Forloop       go to state 78
 
 
-State 152
+State 153
 
-   78 Forloop: FOR '(' ';' Expression ';' ')' . Statement
+   74 Forloop: FOR '(' Assignment ';' ';' ')' Statement .
+
+    $default  reduce using rule 74 (Forloop)
+
+
+State 154
+
+   72 Forloop: FOR '(' Assignment ';' ';' Assignment ')' . Statement
 
     ID      shift, and go to state 52
     IF      shift, and go to state 68
@@ -2302,16 +2357,9 @@ State 152
     Forloop       go to state 78
 
 
-State 153
+State 155
 
-   76 Forloop: FOR '(' ';' Expression ';' Assignment . ')' Statement
-
-    ')'  shift, and go to state 159
-
-
-State 154
-
-   77 Forloop: FOR '(' Assignment ';' ';' ')' . Statement
+   71 Forloop: FOR '(' Assignment ';' Expression ';' ')' . Statement
 
     ID      shift, and go to state 52
     IF      shift, and go to state 68
@@ -2321,159 +2369,62 @@ State 154
     '{'     shift, and go to state 72
     ';'     shift, and go to state 73
 
-    Statement     go to state 160
+    Statement     go to state 159
     Assignment    go to state 75
     Functioncall  go to state 76
     Identifier    go to state 77
     Forloop       go to state 78
-
-
-State 155
-
-   75 Forloop: FOR '(' Assignment ';' ';' Assignment . ')' Statement
-
-    ')'  shift, and go to state 161
 
 
 State 156
 
-   73 Forloop: FOR '(' Assignment ';' Expression ';' . Assignment ')' Statement
-   74        | FOR '(' Assignment ';' Expression ';' . ')' Statement
+   70 Forloop: FOR '(' Assignment ';' Expression ';' Assignment . ')' Statement
 
-    ID   shift, and go to state 44
-    ')'  shift, and go to state 162
-
-    Assignment  go to state 163
-    Identifier  go to state 77
+    ')'  shift, and go to state 160
 
 
 State 157
 
-   79 Forloop: FOR '(' ';' ';' Assignment ')' Statement .
+   73 Forloop: FOR '(' ';' Expression ';' Assignment ')' Statement .
 
-    $default  reduce using rule 79 (Forloop)
+    $default  reduce using rule 73 (Forloop)
 
 
 State 158
 
-   78 Forloop: FOR '(' ';' Expression ';' ')' Statement .
+   72 Forloop: FOR '(' Assignment ';' ';' Assignment ')' Statement .
 
-    $default  reduce using rule 78 (Forloop)
+    $default  reduce using rule 72 (Forloop)
 
 
 State 159
 
-   76 Forloop: FOR '(' ';' Expression ';' Assignment ')' . Statement
+   71 Forloop: FOR '(' Assignment ';' Expression ';' ')' Statement .
 
-    ID      shift, and go to state 52
-    IF      shift, and go to state 68
-    RETURN  shift, and go to state 69
-    WHILE   shift, and go to state 70
-    FOR     shift, and go to state 71
-    '{'     shift, and go to state 72
-    ';'     shift, and go to state 73
-
-    Statement     go to state 164
-    Assignment    go to state 75
-    Functioncall  go to state 76
-    Identifier    go to state 77
-    Forloop       go to state 78
+    $default  reduce using rule 71 (Forloop)
 
 
 State 160
 
-   77 Forloop: FOR '(' Assignment ';' ';' ')' Statement .
+   70 Forloop: FOR '(' Assignment ';' Expression ';' Assignment ')' . Statement
 
-    $default  reduce using rule 77 (Forloop)
+    ID      shift, and go to state 52
+    IF      shift, and go to state 68
+    RETURN  shift, and go to state 69
+    WHILE   shift, and go to state 70
+    FOR     shift, and go to state 71
+    '{'     shift, and go to state 72
+    ';'     shift, and go to state 73
+
+    Statement     go to state 161
+    Assignment    go to state 75
+    Functioncall  go to state 76
+    Identifier    go to state 77
+    Forloop       go to state 78
 
 
 State 161
 
-   75 Forloop: FOR '(' Assignment ';' ';' Assignment ')' . Statement
+   70 Forloop: FOR '(' Assignment ';' Expression ';' Assignment ')' Statement .
 
-    ID      shift, and go to state 52
-    IF      shift, and go to state 68
-    RETURN  shift, and go to state 69
-    WHILE   shift, and go to state 70
-    FOR     shift, and go to state 71
-    '{'     shift, and go to state 72
-    ';'     shift, and go to state 73
-
-    Statement     go to state 165
-    Assignment    go to state 75
-    Functioncall  go to state 76
-    Identifier    go to state 77
-    Forloop       go to state 78
-
-
-State 162
-
-   74 Forloop: FOR '(' Assignment ';' Expression ';' ')' . Statement
-
-    ID      shift, and go to state 52
-    IF      shift, and go to state 68
-    RETURN  shift, and go to state 69
-    WHILE   shift, and go to state 70
-    FOR     shift, and go to state 71
-    '{'     shift, and go to state 72
-    ';'     shift, and go to state 73
-
-    Statement     go to state 166
-    Assignment    go to state 75
-    Functioncall  go to state 76
-    Identifier    go to state 77
-    Forloop       go to state 78
-
-
-State 163
-
-   73 Forloop: FOR '(' Assignment ';' Expression ';' Assignment . ')' Statement
-
-    ')'  shift, and go to state 167
-
-
-State 164
-
-   76 Forloop: FOR '(' ';' Expression ';' Assignment ')' Statement .
-
-    $default  reduce using rule 76 (Forloop)
-
-
-State 165
-
-   75 Forloop: FOR '(' Assignment ';' ';' Assignment ')' Statement .
-
-    $default  reduce using rule 75 (Forloop)
-
-
-State 166
-
-   74 Forloop: FOR '(' Assignment ';' Expression ';' ')' Statement .
-
-    $default  reduce using rule 74 (Forloop)
-
-
-State 167
-
-   73 Forloop: FOR '(' Assignment ';' Expression ';' Assignment ')' . Statement
-
-    ID      shift, and go to state 52
-    IF      shift, and go to state 68
-    RETURN  shift, and go to state 69
-    WHILE   shift, and go to state 70
-    FOR     shift, and go to state 71
-    '{'     shift, and go to state 72
-    ';'     shift, and go to state 73
-
-    Statement     go to state 168
-    Assignment    go to state 75
-    Functioncall  go to state 76
-    Identifier    go to state 77
-    Forloop       go to state 78
-
-
-State 168
-
-   73 Forloop: FOR '(' Assignment ';' Expression ';' Assignment ')' Statement .
-
-    $default  reduce using rule 73 (Forloop)
+    $default  reduce using rule 70 (Forloop)

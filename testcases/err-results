@@ -1,0 +1,100 @@
+err01.c
+error: line    10: `x' is already defined 
+
+err02.c
+error: line     5: `x' is already defined 
+
+err03.c
+error: line    10: `foo' is already defined 
+
+err04.c
+error: line    13: `foo' is already defined 
+
+err05.c
+error: line     6: `f' number of arguments mismatch between function definition and declaration 
+
+err06.c
+error: line     6: `y' function definition and declaration mismatch 
+error: line    13: `x' function definition and declaration mismatch 
+
+err07.c
+error: line     6: `f' function definition and declaration return type mismatch 
+
+err08.c
+error: line     6: `g' function definition and declaration return type mismatch 
+
+err09.c
+error: line     8: `foo' is already defined 
+
+err10.c
+error: line     4: `x' is already defined 
+
+err11.c
+error: line     6: `foo' is defined as extern 
+
+err12.c
+error: line     5: `y' is not defined 
+
+err13.c
+error: line     7: `x' is not an array 
+
+err14.c
+error: line     7: `foo' invalid function call 
+
+err15.c
+error: line     7:  invalid operation, types are incompatible  
+
+err16.c
+error: line     7: `p' returns a value that isn't assigned 
+
+err17.c
+error: line     5:  function is defined as void  
+
+err18.c
+error: line     6:  function requires a return statement  
+
+err19.c
+error: line     6:  function must return a value  
+
+err20.c
+error: line     7:  index must be scalar - int or char  
+
+err21.c
+error: line     7: `foo' invalid function call 
+
+err22.c
+error: line     7: `u' formal parameter and argument are not compatible
+
+err23.c
+error: line     7: `u' formal parameter and argument are not compatible
+
+err24.c
+error: line     7:  invalid operation, types are incompatible  
+
+err25.c
+error: line     7:  invalid operation, types are incompatible  
+
+err26.c
+error: line     7:  invalid assignment, types are incompatible  
+
+err27.c
+error: line     7: `foo' invalid function call 
+
+err28.c
+error: line     7:  invalid assignment, types are incompatible  
+
+err29.c
+error: line     7:  invalid operation, types are incompatible  
+
+err30.c
+error: line     5:  type being returned isn't compatible with function definition 
+
+err31.c
+error: line     5: `foo' invalid function call 
+
+err32.c
+error: line     5: `x' formal parameter and argument are not compatible
+error: line     5: `y' formal parameter and argument are not compatible
+
+
+

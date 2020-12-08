@@ -62,7 +62,20 @@ extern int yydebug;
     CHAR = 268,
     INT = 269,
     INTCON = 270,
-    STRING = 271
+    STRING = 271,
+    AND = 272,
+    OR = 273,
+    LT = 274,
+    GT = 275,
+    GTEQ = 276,
+    LTEQ = 277,
+    PLUS = 278,
+    EQ = 279,
+    NOTEQ = 280,
+    MUL = 281,
+    DIV = 282,
+    NOT = 283,
+    MINUS = 284
   };
 #endif
 /* Tokens.  */
@@ -80,18 +93,36 @@ extern int yydebug;
 #define INT 269
 #define INTCON 270
 #define STRING 271
+#define AND 272
+#define OR 273
+#define LT 274
+#define GT 275
+#define GTEQ 276
+#define LTEQ 277
+#define PLUS 278
+#define EQ 279
+#define NOTEQ 280
+#define MUL 281
+#define DIV 282
+#define NOT 283
+#define MINUS 284
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "parser.y"
+#line 15 "parser.y"
 
     int intVal;
     char *charVal;
     struct idstruct *idVal;
+    struct statement_node *statementNode;
+    struct expr_node *expressionNode;
+    struct assignment_node *assignmentNode;
+    struct function_node *functionNode;
+    struct parameter_node *parameterNode;
 
-#line 95 "y.tab.h"
+#line 126 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

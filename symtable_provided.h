@@ -1,6 +1,7 @@
 /* symbol table definitions */
 
 #include <strings.h>
+#include <stdio.h>
 
 #ifndef SYMTABLE_H
 

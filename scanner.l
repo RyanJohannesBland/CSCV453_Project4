@@ -29,6 +29,110 @@ ID          {LETTER}{ALPHANUM}*
     skip = 0;
 }
 
+"!" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(NOT);
+    }
+}
+
+"+" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(PLUS);
+    }
+}
+
+"*" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(MUL);
+    }
+}
+
+"/" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(DIV);
+    }
+}
+
+"==" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(EQ);
+    }
+}
+
+"!=" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(NOTEQ);
+    }
+}
+
+"<=" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(LTEQ);
+    }
+}
+
+">=" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(GTEQ);
+    }
+}
+
+">" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(GT);
+    }
+}
+
+"<" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(LT);
+    }
+}
+
+"&&" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(AND);
+    }
+}
+
+"||" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(OR);
+    }
+}
+
+"-" {
+    if(!skip){
+        yylval.intVal = yytext[0];
+        if(comment){printf("%s", yytext);}
+        return(MINUS);
+    }
+}
+
 "extern" {
     if(!skip){
         yylval.intVal = yytext[0];
