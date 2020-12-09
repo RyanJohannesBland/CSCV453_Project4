@@ -1,0 +1,98 @@
+./parse < ../prog3/tests/test59.c 
+
+####
+LABEL id :
+ENTER id, 1
+RETVAL x 
+LEAVE id
+RETURN 
+
+####
+
+####
+LABEL main :
+ENTER main, 0
+__3A0 = 123
+x = __3A0
+__3A1 = 3
+PARAM __3A1
+CALL id, 1
+RETRIEVE __3A2
+PARAM __3A2
+CALL id, 1
+RETRIEVE __3A3
+__3A4 = 4
+PARAM __3A4
+CALL id, 1
+RETRIEVE __3A5
+PARAM __3A5
+CALL id, 1
+RETRIEVE __3A6
+PARAM __3A6
+CALL id, 1
+RETRIEVE __3A7
+IF __3A3 > __3A7 GOTO __3L0
+GOTO  __3L1 
+LABEL __3L0 :
+__3A8 = 321
+x = __3A8
+LABEL __3L1 :
+__3A9 = 12
+i = __3A9
+LABEL __3L2 :
+PARAM i
+CALL id, 1
+RETRIEVE __3A10
+PARAM __3A10
+CALL id, 1
+RETRIEVE __3A11
+PARAM __3A11
+CALL id, 1
+RETRIEVE __3A12
+__3A13 = 0
+IF __3A12 > __3A13 GOTO __3L3
+GOTO  __3L4 
+LABEL __3L3 :
+__3A14 = 1
+__3A15 = x - __3A14
+x = __3A15
+__3A16 = 1
+__3A17 = i - __3A16
+i = __3A17
+GOTO  __3L2 
+LABEL __3L4 :
+__3A18 = 0
+PARAM __3A18
+CALL id, 1
+RETRIEVE __3A19
+i = __3A19
+LABEL __3L5 :
+PARAM i
+CALL id, 1
+RETRIEVE __3A20
+PARAM __3A20
+CALL id, 1
+RETRIEVE __3A21
+__3A22 = 6
+IF __3A21 < __3A22 GOTO __3L6
+GOTO  __3L7 
+LABEL __3L6 :
+__3A26 = 2
+__3A27 = x + __3A26
+x = __3A27
+PARAM i
+CALL id, 1
+RETRIEVE __3A23
+__3A24 = 1
+__3A25 = __3A23 + __3A24
+i = __3A25
+GOTO  __3L5 
+LABEL __3L7 :
+PARAM x
+CALL print_int, 1
+PARAM __3A28
+CALL print_string, 1
+LEAVE main
+RETURN 
+
+####

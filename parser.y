@@ -10,6 +10,7 @@ int yylex();
 int yyerror(char *s);
 idstruct *insert(char *word);
 void print_function(function_node *function, statement_node *statements);
+void print_statement_node(statement_node *statement);
 %}
 
 %union {
@@ -52,10 +53,10 @@ Program_piece: function_declaration ';'
     | Variable_declaration
 
 function_declaration: EXTERN Type Functionhead_list
-    | Type Functionhead_list        
-    | EXTERN VOID Functionhead_list 
-    | VOID Functionhead_list        
-    | EXTERN Functionhead_list      
+    | Type Functionhead_list
+    | EXTERN VOID Functionhead_list
+    | VOID Functionhead_list
+    | EXTERN Functionhead_list
 
 
 Functionhead_list: Functionhead | Functionhead_list ',' Functionhead
@@ -72,12 +73,12 @@ Functionbody : Varlist Stmtlist {$$ = $2;}
 Varlist: /* empty */
     | Varlist Variable_declaration
 
-Variable_declaration: Type IDlist ';' 
+Variable_declaration: Type IDlist ';'
 
 Stmtlist: /* empty */   {$$ = NULL;}
     | Stmtlist Statement    {$$ = append_statement($1, $2);}
 
-Param_types: Param_type             {$$ = $1;}     
+Param_types: Param_type             {$$ = $1;}
     | Param_types ',' Param_type    {$$ = append_parameter($1, $3);}
 
 Param_type: Type Identifier     {$$ = make_parameter_node($2);}
@@ -85,18 +86,18 @@ Param_type: Type Identifier     {$$ = make_parameter_node($2);}
     | VOID                      {$$ = NULL;}
 
 Type: CHAR
-    | INT  
+    | INT
 
 Statement:
     ';'                                         {$$ = NULL;}
-    | IF Expression Statement                   {$$ = NULL;}
-    | IF Expression Statement ELSE Statement    {$$ = NULL;}
+    | IF Expression Statement                   {$$ = make_statement_node(6, $2, NULL, NULL, $3, NULL);}
+    | IF Expression Statement ELSE Statement    {$$ = make_statement_node(6, $2, NULL, NULL, $3, $5);}
     | WHILE Expression Statement                {$$ = NULL;}
     | Forloop                                   {$$ = NULL;}
-    | RETURN Expression ';'                     {$$ = make_statement_node(1, $2, NULL, NULL);}
-    | RETURN ';'                                {$$ = make_statement_node(1, NULL, NULL, NULL);}
-    | Assignment ';'                            {$$ = make_statement_node(2, NULL, $1, NULL);}
-    | Functioncall ';'                          {$$ = make_statement_node(3, NULL, NULL, $1);}
+    | RETURN Expression ';'                     {$$ = make_statement_node(1, $2, NULL, NULL, NULL, NULL);}
+    | RETURN ';'                                {$$ = make_statement_node(1, NULL, NULL, NULL, NULL, NULL);}
+    | Assignment ';'                            {$$ = make_statement_node(2, NULL, $1, NULL, NULL, NULL);}
+    | Functioncall ';'                          {$$ = make_statement_node(3, NULL, NULL, $1, NULL, NULL);}
     | '{' Stmtlist '}'                          {$$ = $2;}
 
 Assignment: Identifier '=' Expression           {$$ = make_assignment_node($1, $3);}
@@ -127,8 +128,8 @@ Functioncall:
     ID '(' ')'                          {idstruct *id = insert($1);$$ = make_function_node(id, NULL);}
     | ID '(' Parameterlist ')'          {idstruct *id = insert($1);$$ = make_function_node(id, NULL);}
 
-IDlist: Identifier          
-    | IDlist ',' Identifier 
+IDlist: Identifier
+    | IDlist ',' Identifier
 
 Identifier: ID              {$$ = insert($1);}
     | ID '[' Expression ']' {$$ = insert($1);}
@@ -160,7 +161,28 @@ idstruct *insert(char* word){
 
 
 void print_function(function_node *function, statement_node *statements){
-    printf("Successfully built a function tree\n");
+    int count = 0;
+    parameter_node *param = function->params;
+
+    // Print intro to function.
+    printf("LABEL %s :\n", function->id->lexeme);
+    while(param != NULL){
+        count++;
+        param = param->next;
+    }
+    printf("ENTER %s, %d\n", function->id->lexeme, count);
+
+    // Linked list of statements.
+    print_statement_node(statements);
+
+    // Print exit to function.
+    printf("LEAVE %s\n", function->id->lexeme);
+}
+
+
+void print_statement_node(statement_node *statement){
+    // Iterate through the linked list and print out the pseudo code for
+    // statements. Possibly recursive.
 }
 
 

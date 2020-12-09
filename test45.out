@@ -1,0 +1,81 @@
+./parse < ../prog3/tests/test45.c 
+
+####
+LABEL main :
+ENTER main, 0
+__3A0 = 0
+i = __3A0
+LABEL __3L0 :
+__3A1 = 5
+IF i < __3A1 GOTO __3L1
+GOTO  __3L2 
+LABEL __3L1 :
+x[i] = i
+__3A2 = 1
+__3A3 = i + __3A2
+i = __3A3
+GOTO  __3L0 
+LABEL __3L2 :
+__3A4 = 123
+res = __3A4
+LABEL __3L3 :
+__3A5 = 5
+__3A6 = i / __3A5
+__3A7 = x[__3A6]
+__3A8 = 4
+__3A9 = i / __3A8
+__3A10 = x[__3A9]
+IF __3A7 <= __3A10 GOTO __3L7
+GOTO  __3L4 
+LABEL __3L7 :
+__3A11 = 4
+__3A12 = i / __3A11
+__3A13 = x[__3A12]
+__3A14 = 3
+__3A15 = i / __3A14
+__3A16 = x[__3A15]
+IF __3A13 <= __3A16 GOTO __3L6
+GOTO  __3L4 
+LABEL __3L6 :
+__3A17 = 2
+__3A18 = i / __3A17
+__3A19 = x[__3A18]
+__3A20 = 3
+__3A21 = i / __3A20
+__3A22 = x[__3A21]
+IF __3A19 > __3A22 GOTO __3L4
+GOTO  __3L9 
+LABEL __3L9 :
+__3A23 = 3
+__3A24 = i / __3A23
+__3A25 = x[__3A24]
+__3A26 = 4
+__3A27 = i / __3A26
+__3A28 = x[__3A27]
+IF __3A25 > __3A28 GOTO __3L4
+GOTO  __3L8 
+LABEL __3L8 :
+__3A29 = 4
+__3A30 = i / __3A29
+__3A31 = x[__3A30]
+__3A32 = 5
+__3A33 = i / __3A32
+__3A34 = x[__3A33]
+IF __3A31 > __3A34 GOTO __3L4
+GOTO  __3L5 
+LABEL __3L4 :
+__3A35 = res * i
+res = __3A35
+__3A36 = 1
+__3A37 = i - __3A36
+i = __3A37
+GOTO  __3L3 
+LABEL __3L5 :
+PARAM res
+CALL print_int, 1
+PARAM __3A38
+CALL print_string, 1
+LEAVE main
+RETURN 
+
+####

@@ -1,0 +1,73 @@
+./parse < ../prog3/tests/test50.c 
+
+####
+LABEL main :
+ENTER main, 0
+__3A0 = 123
+res = __3A0
+__3A1 = 0
+i = __3A1
+LABEL __3L11 :
+__3A2 = 5
+IF i < __3A2 GOTO __3L12
+GOTO  __3L13 
+LABEL __3L12 :
+__3A5 = 0
+j = __3A5
+LABEL __3L8 :
+__3A6 = 5
+IF j < __3A6 GOTO __3L9
+GOTO  __3L10 
+LABEL __3L9 :
+__3A9 = i + j
+__3A10 = 2
+__3A11 = __3A9 / __3A10
+k = __3A11
+IF k > i GOTO __3L6
+GOTO  __3L7 
+LABEL __3L6 :
+__3A12 = 0
+a = __3A12
+LABEL __3L3 :
+__3A13 = 5
+IF a < __3A13 GOTO __3L4
+GOTO  __3L5 
+LABEL __3L4 :
+__3A16 = a + k
+__3A17 = 2
+__3A18 = __3A16 / __3A17
+b = __3A18
+IF b > j GOTO __3L0
+GOTO  __3L1 
+LABEL __3L0 :
+__3A19 = res + b
+res = __3A19
+GOTO  __3L2 
+LABEL __3L1 :
+__3A20 = res + k
+res = __3A20
+LABEL __3L2 :
+__3A14 = 1
+__3A15 = a + __3A14
+a = __3A15
+GOTO  __3L3 
+LABEL __3L5 :
+LABEL __3L7 :
+__3A7 = 1
+__3A8 = j + __3A7
+j = __3A8
+GOTO  __3L8 
+LABEL __3L10 :
+__3A3 = 1
+__3A4 = i + __3A3
+i = __3A4
+GOTO  __3L11 
+LABEL __3L13 :
+PARAM res
+CALL print_int, 1
+PARAM __3A21
+CALL print_string, 1
+LEAVE main
+RETURN 
+
+####

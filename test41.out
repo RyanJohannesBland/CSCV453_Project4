@@ -1,0 +1,44 @@
+./parse < ../prog3/tests/test41.c 
+
+####
+LABEL main :
+ENTER main, 0
+__3A0 = 1
+__3A1 = 0
+IF __3A0 > __3A1 GOTO __3L0
+GOTO  __3L1 
+LABEL __3L0 :
+__3A2 = 1111
+res1 = __3A2
+GOTO  __3L2 
+LABEL __3L1 :
+__3A3 = 2222
+res1 = __3A3
+LABEL __3L2 :
+__3A4 = 1
+x = __3A4
+__3A5 = 1
+__3A6 = - __3A5
+y = __3A6
+IF x > y GOTO __3L3
+GOTO  __3L4 
+LABEL __3L3 :
+__3A7 = 3333
+res2 = __3A7
+GOTO  __3L5 
+LABEL __3L4 :
+__3A8 = 4444
+res2 = __3A8
+LABEL __3L5 :
+PARAM res1
+CALL print_int, 1
+PARAM __3A9
+CALL print_string, 1
+PARAM res2
+CALL print_int, 1
+PARAM __3A10
+CALL print_string, 1
+LEAVE main
+RETURN 
+
+####

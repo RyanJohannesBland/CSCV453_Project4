@@ -79,8 +79,9 @@ int yylex();
 int yyerror(char *s);
 idstruct *insert(char *word);
 void print_function(function_node *function, statement_node *statements);
+void print_statement_node(statement_node *statement);
 
-#line 84 "y.tab.c"
+#line 85 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -190,7 +191,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "parser.y"
+#line 16 "parser.y"
 
     int intVal;
     char *charVal;
@@ -201,7 +202,7 @@ union YYSTYPE
     struct function_node *functionNode;
     struct parameter_node *parameterNode;
 
-#line 205 "y.tab.c"
+#line 206 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -579,14 +580,14 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    47,    47,    48,    50,    51,    52,    54,    55,    56,
-      57,    58,    61,    61,    63,    66,    67,    68,    70,    72,
-      73,    75,    77,    78,    80,    81,    83,    84,    85,    87,
-      88,    91,    92,    93,    94,    95,    96,    97,    98,    99,
-     100,   102,   105,   106,   107,   108,   109,   110,   111,   112,
-     113,   114,   115,   116,   117,   118,   119,   120,   121,   122,
-     123,   124,   127,   128,   130,   131,   133,   134,   135,   137,
-     137,   140,   141,   142,   143,   144,   145,   146,   147
+       0,    48,    48,    49,    51,    52,    53,    55,    56,    57,
+      58,    59,    62,    62,    64,    67,    68,    69,    71,    73,
+      74,    76,    78,    79,    81,    82,    84,    85,    86,    88,
+      89,    92,    93,    94,    95,    96,    97,    98,    99,   100,
+     101,   103,   106,   107,   108,   109,   110,   111,   112,   113,
+     114,   115,   116,   117,   118,   119,   120,   121,   122,   123,
+     124,   125,   128,   129,   131,   132,   134,   135,   136,   138,
+     138,   141,   142,   143,   144,   145,   146,   147,   148
 };
 #endif
 
@@ -1526,283 +1527,283 @@ yyreduce:
   switch (yyn)
     {
   case 14:
-#line 63 "parser.y"
+#line 64 "parser.y"
                                      {idstruct *id = insert((yyvsp[-3].charVal));(yyval.functionNode) = make_function_node(id, (yyvsp[-1].parameterNode));}
-#line 1532 "y.tab.c"
+#line 1533 "y.tab.c"
     break;
 
   case 16:
-#line 67 "parser.y"
+#line 68 "parser.y"
                                                 {print_function((yyvsp[-3].functionNode), (yyvsp[-1].statementNode));}
-#line 1538 "y.tab.c"
+#line 1539 "y.tab.c"
     break;
 
   case 18:
-#line 70 "parser.y"
+#line 71 "parser.y"
                                 {(yyval.statementNode) = (yyvsp[0].statementNode);}
-#line 1544 "y.tab.c"
+#line 1545 "y.tab.c"
     break;
 
   case 22:
-#line 77 "parser.y"
+#line 78 "parser.y"
                         {(yyval.statementNode) = NULL;}
-#line 1550 "y.tab.c"
+#line 1551 "y.tab.c"
     break;
 
   case 23:
-#line 78 "parser.y"
+#line 79 "parser.y"
                             {(yyval.statementNode) = append_statement((yyvsp[-1].statementNode), (yyvsp[0].statementNode));}
-#line 1556 "y.tab.c"
+#line 1557 "y.tab.c"
     break;
 
   case 24:
-#line 80 "parser.y"
+#line 81 "parser.y"
                                     {(yyval.parameterNode) = (yyvsp[0].parameterNode);}
-#line 1562 "y.tab.c"
+#line 1563 "y.tab.c"
     break;
 
   case 25:
-#line 81 "parser.y"
+#line 82 "parser.y"
                                     {(yyval.parameterNode) = append_parameter((yyvsp[-2].parameterNode), (yyvsp[0].parameterNode));}
-#line 1568 "y.tab.c"
+#line 1569 "y.tab.c"
     break;
 
   case 26:
-#line 83 "parser.y"
+#line 84 "parser.y"
                                 {(yyval.parameterNode) = make_parameter_node((yyvsp[0].idVal));}
-#line 1574 "y.tab.c"
+#line 1575 "y.tab.c"
     break;
 
   case 27:
-#line 84 "parser.y"
+#line 85 "parser.y"
                                 {(yyval.parameterNode) = make_parameter_node((yyvsp[-2].idVal));}
-#line 1580 "y.tab.c"
+#line 1581 "y.tab.c"
     break;
 
   case 28:
-#line 85 "parser.y"
+#line 86 "parser.y"
                                 {(yyval.parameterNode) = NULL;}
-#line 1586 "y.tab.c"
+#line 1587 "y.tab.c"
     break;
 
   case 31:
-#line 91 "parser.y"
+#line 92 "parser.y"
                                                 {(yyval.statementNode) = NULL;}
-#line 1592 "y.tab.c"
+#line 1593 "y.tab.c"
     break;
 
   case 32:
-#line 92 "parser.y"
-                                                {(yyval.statementNode) = NULL;}
-#line 1598 "y.tab.c"
+#line 93 "parser.y"
+                                                {(yyval.statementNode) = make_statement_node(6, (yyvsp[-1].expressionNode), NULL, NULL, (yyvsp[0].statementNode), NULL);}
+#line 1599 "y.tab.c"
     break;
 
   case 33:
-#line 93 "parser.y"
-                                                {(yyval.statementNode) = NULL;}
-#line 1604 "y.tab.c"
+#line 94 "parser.y"
+                                                {(yyval.statementNode) = make_statement_node(6, (yyvsp[-3].expressionNode), NULL, NULL, (yyvsp[-2].statementNode), (yyvsp[0].statementNode));}
+#line 1605 "y.tab.c"
     break;
 
   case 34:
-#line 94 "parser.y"
+#line 95 "parser.y"
                                                 {(yyval.statementNode) = NULL;}
-#line 1610 "y.tab.c"
+#line 1611 "y.tab.c"
     break;
 
   case 35:
-#line 95 "parser.y"
+#line 96 "parser.y"
                                                 {(yyval.statementNode) = NULL;}
-#line 1616 "y.tab.c"
+#line 1617 "y.tab.c"
     break;
 
   case 36:
-#line 96 "parser.y"
-                                                {(yyval.statementNode) = make_statement_node(1, (yyvsp[-1].expressionNode), NULL, NULL);}
-#line 1622 "y.tab.c"
+#line 97 "parser.y"
+                                                {(yyval.statementNode) = make_statement_node(1, (yyvsp[-1].expressionNode), NULL, NULL, NULL, NULL);}
+#line 1623 "y.tab.c"
     break;
 
   case 37:
-#line 97 "parser.y"
-                                                {(yyval.statementNode) = make_statement_node(1, NULL, NULL, NULL);}
-#line 1628 "y.tab.c"
+#line 98 "parser.y"
+                                                {(yyval.statementNode) = make_statement_node(1, NULL, NULL, NULL, NULL, NULL);}
+#line 1629 "y.tab.c"
     break;
 
   case 38:
-#line 98 "parser.y"
-                                                {(yyval.statementNode) = make_statement_node(2, NULL, (yyvsp[-1].assignmentNode), NULL);}
-#line 1634 "y.tab.c"
+#line 99 "parser.y"
+                                                {(yyval.statementNode) = make_statement_node(2, NULL, (yyvsp[-1].assignmentNode), NULL, NULL, NULL);}
+#line 1635 "y.tab.c"
     break;
 
   case 39:
-#line 99 "parser.y"
-                                                {(yyval.statementNode) = make_statement_node(3, NULL, NULL, (yyvsp[-1].functionNode));}
-#line 1640 "y.tab.c"
+#line 100 "parser.y"
+                                                {(yyval.statementNode) = make_statement_node(3, NULL, NULL, (yyvsp[-1].functionNode), NULL, NULL);}
+#line 1641 "y.tab.c"
     break;
 
   case 40:
-#line 100 "parser.y"
+#line 101 "parser.y"
                                                 {(yyval.statementNode) = (yyvsp[-1].statementNode);}
-#line 1646 "y.tab.c"
+#line 1647 "y.tab.c"
     break;
 
   case 41:
-#line 102 "parser.y"
+#line 103 "parser.y"
                                                 {(yyval.assignmentNode) = make_assignment_node((yyvsp[-2].idVal), (yyvsp[0].expressionNode));}
-#line 1652 "y.tab.c"
+#line 1653 "y.tab.c"
     break;
 
   case 42:
-#line 105 "parser.y"
+#line 106 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1658 "y.tab.c"
+#line 1659 "y.tab.c"
     break;
 
   case 43:
-#line 106 "parser.y"
+#line 107 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1664 "y.tab.c"
+#line 1665 "y.tab.c"
     break;
 
   case 44:
-#line 107 "parser.y"
+#line 108 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1670 "y.tab.c"
+#line 1671 "y.tab.c"
     break;
 
   case 45:
-#line 108 "parser.y"
+#line 109 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1676 "y.tab.c"
+#line 1677 "y.tab.c"
     break;
 
   case 46:
-#line 109 "parser.y"
+#line 110 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1682 "y.tab.c"
+#line 1683 "y.tab.c"
     break;
 
   case 47:
-#line 110 "parser.y"
+#line 111 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1688 "y.tab.c"
+#line 1689 "y.tab.c"
     break;
 
   case 48:
-#line 111 "parser.y"
+#line 112 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1694 "y.tab.c"
+#line 1695 "y.tab.c"
     break;
 
   case 49:
-#line 112 "parser.y"
+#line 113 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1700 "y.tab.c"
+#line 1701 "y.tab.c"
     break;
 
   case 50:
-#line 113 "parser.y"
+#line 114 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1706 "y.tab.c"
+#line 1707 "y.tab.c"
     break;
 
   case 51:
-#line 114 "parser.y"
+#line 115 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1712 "y.tab.c"
+#line 1713 "y.tab.c"
     break;
 
   case 52:
-#line 115 "parser.y"
+#line 116 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1718 "y.tab.c"
+#line 1719 "y.tab.c"
     break;
 
   case 53:
-#line 116 "parser.y"
+#line 117 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1724 "y.tab.c"
+#line 1725 "y.tab.c"
     break;
 
   case 54:
-#line 117 "parser.y"
+#line 118 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1730 "y.tab.c"
+#line 1731 "y.tab.c"
     break;
 
   case 55:
-#line 118 "parser.y"
+#line 119 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1736 "y.tab.c"
+#line 1737 "y.tab.c"
     break;
 
   case 56:
-#line 119 "parser.y"
+#line 120 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1742 "y.tab.c"
+#line 1743 "y.tab.c"
     break;
 
   case 57:
-#line 120 "parser.y"
+#line 121 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1748 "y.tab.c"
+#line 1749 "y.tab.c"
     break;
 
   case 58:
-#line 121 "parser.y"
+#line 122 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1754 "y.tab.c"
+#line 1755 "y.tab.c"
     break;
 
   case 59:
-#line 122 "parser.y"
+#line 123 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1760 "y.tab.c"
+#line 1761 "y.tab.c"
     break;
 
   case 60:
-#line 123 "parser.y"
+#line 124 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1766 "y.tab.c"
+#line 1767 "y.tab.c"
     break;
 
   case 61:
-#line 124 "parser.y"
+#line 125 "parser.y"
                                         {(yyval.expressionNode) = NULL;}
-#line 1772 "y.tab.c"
+#line 1773 "y.tab.c"
     break;
 
   case 62:
-#line 127 "parser.y"
+#line 128 "parser.y"
                                         {idstruct *id = insert((yyvsp[-2].charVal));(yyval.functionNode) = make_function_node(id, NULL);}
-#line 1778 "y.tab.c"
+#line 1779 "y.tab.c"
     break;
 
   case 63:
-#line 128 "parser.y"
+#line 129 "parser.y"
                                         {idstruct *id = insert((yyvsp[-3].charVal));(yyval.functionNode) = make_function_node(id, NULL);}
-#line 1784 "y.tab.c"
+#line 1785 "y.tab.c"
     break;
 
   case 66:
-#line 133 "parser.y"
+#line 134 "parser.y"
                             {(yyval.idVal) = insert((yyvsp[0].charVal));}
-#line 1790 "y.tab.c"
+#line 1791 "y.tab.c"
     break;
 
   case 67:
-#line 134 "parser.y"
+#line 135 "parser.y"
                             {(yyval.idVal) = insert((yyvsp[-3].charVal));}
-#line 1796 "y.tab.c"
+#line 1797 "y.tab.c"
     break;
 
   case 68:
-#line 135 "parser.y"
+#line 136 "parser.y"
                             {(yyval.idVal) = insert((yyvsp[-2].charVal));}
-#line 1802 "y.tab.c"
+#line 1803 "y.tab.c"
     break;
 
 
-#line 1806 "y.tab.c"
+#line 1807 "y.tab.c"
 
       default: break;
     }
@@ -2034,7 +2035,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 149 "parser.y"
+#line 150 "parser.y"
 
 
 
@@ -2049,7 +2050,28 @@ idstruct *insert(char* word){
 
 
 void print_function(function_node *function, statement_node *statements){
-    printf("Successfully built a function tree\n");
+    int count = 0;
+    parameter_node *param = function->params;
+
+    // Print intro to function.
+    printf("LABEL %s :\n", function->id->lexeme);
+    while(param != NULL){
+        count++;
+        param = param->next;
+    }
+    printf("ENTER %s, %d\n", function->id->lexeme, count);
+
+    // Linked list of statements.
+    print_statement_node(statements);
+
+    // Print exit to function.
+    printf("LEAVE %s\n", function->id->lexeme);
+}
+
+
+void print_statement_node(statement_node *statement){
+    // Iterate through the linked list and print out the pseudo code for
+    // statements. Possibly recursive.
 }
 
 

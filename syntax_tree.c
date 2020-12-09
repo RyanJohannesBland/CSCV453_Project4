@@ -2,7 +2,7 @@
 #include "syntax_tree.h"
 
 
-statement_node *make_statement_node(int type, expr_node *expr_node, assignment_node *assignment_node, function_node *function_node){
+statement_node *make_statement_node(int type, expr_node *expr_node, assignment_node *assignment_node, function_node *function_node, statement_node *if_statement, statement_node *else_statement){
     statement_node *new;
     new = (struct statement_node *) malloc((unsigned) sizeof(statement_node));
     new->type = type;
@@ -10,6 +10,8 @@ statement_node *make_statement_node(int type, expr_node *expr_node, assignment_n
     new->assignment_node = assignment_node;
     new->function_node = function_node;
     new->next = NULL;
+    new->if_statement = if_statement;
+    new->else_statement = else_statement;
     return new;
 }
 

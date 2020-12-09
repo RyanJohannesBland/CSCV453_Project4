@@ -1,0 +1,78 @@
+./parse < ../prog3/tests/test67.c 
+
+####
+LABEL copy :
+ENTER copy, 2
+__3A0 = 0
+i = __3A0
+__3A1 = 0
+i = __3A1
+LABEL __3L0 :
+__3A2 = a[i]
+__3A3 = 0
+IF __3A2 > __3A3 GOTO __3L1
+GOTO  __3L2 
+LABEL __3L1 :
+__3A6 = a[i]
+b[i] = __3A6
+__3A4 = 1
+__3A5 = i + __3A4
+i = __3A5
+GOTO  __3L0 
+LABEL __3L2 :
+__3A7 = 0
+b[i] = __3A7
+RETVAL i 
+LEAVE copy
+RETURN 
+
+####
+
+####
+LABEL sum :
+ENTER sum, 1
+__3A8 = 0
+i = __3A8
+__3A9 = 0
+sum = __3A9
+LABEL __3L3 :
+__3A10 = b[i]
+__3A11 = 0
+IF __3A10 > __3A11 GOTO __3L4
+GOTO  __3L5 
+LABEL __3L4 :
+__3A12 = b[i]
+__3A13 = sum + __3A12
+sum = __3A13
+__3A14 = 1
+__3A15 = i + __3A14
+i = __3A15
+GOTO  __3L3 
+LABEL __3L5 :
+RETVAL sum 
+LEAVE sum
+RETURN 
+
+####
+
+####
+LABEL main :
+ENTER main, 0
+PARAM __3A16
+PARAM x
+CALL copy, 2
+RETRIEVE __3A17
+y = __3A17
+PARAM x
+CALL sum, 1
+RETRIEVE __3A18
+__3A19 = y + __3A18
+y = __3A19
+PARAM y
+CALL print_int, 1
+PARAM __3A20
+CALL print_string, 1
+LEAVE main
+RETURN 
+
+####
